@@ -1,0 +1,6 @@
+{"servers":
+	[
+		{"MachineName":"Shanghai_VPN","Environment":"127.0.0.1"},
+		{"MachineName":"Beijing_VPN","Environment":"127.0.0.2"}
+	]
+}
