@@ -1,6 +1,7 @@
 {"servers":
 	[
-		{"MachineName":"Shanghai_VPN","Environment":"127.0.0.1"},
-		{"MachineName":"Beijing_VPN","Environment":"127.0.0.2"}
+		{"MachineName":"SH-LIUYB-N2","Environment":"dev"},
+		{"MachineName":"Beijing_VPN","Environment":"fat"},
+		{"MachineName":"default","Environment":"dev"}
 	]
 }

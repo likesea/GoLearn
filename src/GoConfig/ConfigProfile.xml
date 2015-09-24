@@ -1,0 +1,48 @@
+<profile>
+	<environments>
+		<add name="dev" dataCenter="sh" target="dev" iis="IIS6,IIS7" net="Net2,Net4" />
+		<add name="fws" dataCenter="sh" target="fws" iis="IIS6,IIS7" net="Net2,Net4" />
+		<add name="fat" dataCenter="ALL" target="fat" iis="ALL" net="ALL" />
+		<add name="lpt" dataCenter="nt" target="lpt" iis="IIS6,IIS7" net="Net2,Net4" />
+		<add dataCenter="sh,nt" iis="IIS6,IIS7" name="uat_nt" net="Net2,Net4" target="uat_nt"/>
+		<add name="prd" dataCenter="sh2" target="prd" iis="IIS6,IIS7" net="Net2,Net4" />
+	</environments>
+	<dev>
+		<AppID>150730</AppID>
+		<LoggingServer.V2.IP>collector.logging.fws.qa.nt.ctripcorp.com</LoggingServer.V2.IP>
+		<SMSSendCode>1069</SMSSendCode>
+		<SMSSendType>Corp</SMSSendType>
+		<CookieDesKey>oS5FnlRtiStWqDdE3X+yeLisuqzW++hJ</CookieDesKey>
+		<TicketDesKey>oS5FnlRt</TicketDesKey>
+		<ESBUrl>http://soa.fws.qa.nt.ctripcorp.com/SOA.ESB/Ctrip.SOA.ESB.asmx</ESBUrl>
+		<AppRoot>/me</AppRoot>
+		<SOA.ServiceRegistry.Url>http://ws.soa.fws.qa.nt.ctripcorp.com/registry/api</SOA.ServiceRegistry.Url>
+		<SOA.ServiceRegistry.TestSubEnv>fws</SOA.ServiceRegistry.TestSubEnv>
+		<FileXServer.IP>exfile.infosec.ctripcorp.com</FileXServer.IP>
+		<FileXServer.Port>80</FileXServer.Port>
+		<FileXServer.User>shanglv-jies|lwy226TZ|shanglv-ccorp</FileXServer.User>
+		<LoginURLPrefix>http://ct.fat4.qa.nt.ctripcorp.com/</LoginURLPrefix>
+		<ResourceUrlEvn>http://webresource.fws.qa.nt.ctripcorp.com/ResCorpUserOnline/R8/ResCorpOnlineME/CSS/</ResourceUrlEvn>
+		<FxConfigServiceUrl></FxConfigServiceUrl>
+		<SessionServer>http://10.2.6.240:8080/eureka/v2</SessionServer>
+	</dev>
+	<fws>
+		<AppID>150730</AppID>
+		<LoggingServer.V2.IP>collector.logging.fws.qa.nt.ctripcorp.com</LoggingServer.V2.IP>
+		<SMSSendCode>1069</SMSSendCode>
+		<SMSSendType>Corp</SMSSendType>
+		<CookieDesKey>oS5FnlRtiStWqDdE3X+yeLisuqzW++hJ</CookieDesKey>
+		<TicketDesKey>oS5FnlRt</TicketDesKey>
+		<ESBUrl>http://soa.fws.qa.nt.ctripcorp.com/SOA.ESB/Ctrip.SOA.ESB.asmx</ESBUrl>
+		<AppRoot>/me</AppRoot>
+		<SOA.ServiceRegistry.Url>http://ws.soa.fws.qa.nt.ctripcorp.com/registry/api</SOA.ServiceRegistry.Url>
+		<SOA.ServiceRegistry.TestSubEnv>fws</SOA.ServiceRegistry.TestSubEnv>
+    <FileXServer.IP>10.2.6.67</FileXServer.IP>
+    <FileXServer.Port>8080</FileXServer.Port>
+    <FileXServer.User>shanglv-jies-t|Hf05vK9I|NT-TEST</FileXServer.User>
+		<LoginURLPrefix>http://ct.{$g.EnvType}.qa.nt.ctripcorp.com/</LoginURLPrefix>
+		<ResourceUrlEvn>http://webresource.c-ctrip.com/ResCorpUserOnline/R8/ResCorpOnlineME/CSS/</ResourceUrlEvn>
+		<FxConfigServiceUrl>http://ws.config.framework.fws.qa.nt.ctripcorp.com/configws/</FxConfigServiceUrl>
+		<SessionServer>http://10.2.6.240:8080/eureka/v2</SessionServer>
+	</fws>
+</profile>
