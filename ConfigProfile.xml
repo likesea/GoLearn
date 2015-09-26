@@ -1,0 +1,7 @@
+    <add key="LoggingServer.V2.IP" value="{$LoggingServer.V2.IP}" />
+    <add key="LoggingServer.V2.Port" value="63100" />
+
+    <add key="TicketDesKey" value="{$TicketDesKey}"/>
+    <add key="CookieDesKey" value="{$CookieDesKey}" />
+    <add key="MyCrtipDomain" value="{$MyCrtipDomain}" />
+    <add key="adSrc" value="{$adSrc}"/>

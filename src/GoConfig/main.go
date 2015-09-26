@@ -1,58 +1,59 @@
 package main
 
 import (
-	"encoding/xml"
+	"bufio"
 	"fmt"
 	"os"
 	"strings"
 )
 
+//os.Args[0] 程序执行路径， os.Args[1] 必传，项目路径，os.Args[2]可选，当前环境 os.Args[3] 可选，是配置文件路径，默认项目路径
+//下的ConfigProfile.xml文件， os.Args[4] 可选，配置文件模板扩展名，默认.tpl
 func main() {
-	var t xml.Token
-	var err error
-	var sta stack
-	var envSettingMap = make(map[string]map[string]string)
-	isNewEnvSetting := true
-	fi, err := os.Open("studygolang.xml")
-	decoder := xml.NewDecoder(fi)
-	var innerSettingMap map[string]string
-	for t, err = decoder.Token(); err == nil; t, err = decoder.Token() {
+	//var absPaths = GetTmpFile("F:\\GoLearn\\src\\GoConfig", ".tpl")
+	fmt.Println(os.Args[0])
+	var currentEnv = GetEnvironment()
+	var configMaps = GetConfig("F:\\GoLearn\\src\\GoConfig\\ConfigProfile.xml")
+	configMap := configMaps[currentEnv]
+	generateConfigFile("F:\\GoLearn\\src\\GoConfig", ".tpl", configMap)
+}
 
-		switch token := t.(type) {
-		// 处理元素开始（标签）
-		case xml.StartElement:
-			name := token.Name.Local
-			if isNewEnvSetting {
-				isNewEnvSetting = false
-				innerSettingMap = make(map[string]string)
-				sta.Put(name)
+func generateConfigFile(path string, ext string, maps map[string]string) {
+	var absPaths = GetTmpFile(path, ext)
+	//var outPutContent []string
+	for _, v := range absPaths {
+		newFilePath := strings.Replace(v, ext, ".config", 1)
+		//创建新文件
+		createdfile, err := os.Create(newFilePath)
+		if err != nil {
+			panic(err)
+		}
+		//打开文件
+		file, err := os.Open(v)
+		if err != nil {
+			panic(err)
+		}
+		//写缓存
+		w := bufio.NewWriter(createdfile)
+		defer file.Close()
+		defer createdfile.Close()
+		//行读
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			//find the key in every line
+			lineContent := scanner.Text()
+			begin := strings.Index(lineContent, "{")
+			if begin == -1 {
+				break
 			} else {
-				sta.Put(name)
+				end := strings.Index(lineContent, "}")
+				key := lineContent[begin+2 : end]
+				lineContent = strings.Replace(lineContent, lineContent[begin:end+1], maps[key], 1)
 			}
-		// 处理元素结束（标签）
-		case xml.EndElement:
-			if sta.Len() > 1 {
-				v := sta.Pop()
-				k := sta.Pop()
-				innerSettingMap[k] = v
-			}else if sta.Len() == 1 {
-				k := sta.Pop()
-				envSettingMap[k] = innerSettingMap
-				isNewEnvSetting = true
-			}
-		// 处理字符数据（这里就是元素的文本）
-		case xml.CharData:
-			content := string([]byte(token))
-			if strings.TrimSpace(content) != "" {
-				sta.Put(content)
-			}
+			n4, _ := w.WriteString(lineContent + "\n")
+			fmt.Println(n4)
 		}
-	}
-	for k, v := range envSettingMap {
-		fmt.Println(k)
-		for j, h := range v {
-			fmt.Println(j, h)
-		}
+		w.Flush()
 
 	}
 }
