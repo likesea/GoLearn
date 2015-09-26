@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	//"fmt"
 	"io/ioutil"
 	"os"
 )
@@ -15,20 +16,22 @@ type Serverslice struct {
 	Servers []Server
 }
 
-func GetEnvironment() string {
+func GetEnvironment(dir string) string {
 	var s Serverslice
-	envMap := s.getSettings()
+	envMap := s.getSettings(dir)
 	osName, _ := os.Hostname()
-	if env, ok := envMap[osName]; ok {
-		return env
+	var env string
+	if v, ok := envMap[osName]; ok {
+		env = v
 	}
-	if env, ok := envMap["default"]; ok {
-		return env
+	if v, ok := envMap["default"]; ok {
+		env = v
 	}
-	return ""
+	return env
 }
-func (s *Serverslice) getSettings() map[string]string {
-	fi, err := os.Open("settings.json")
+func (s *Serverslice) getSettings(dir string) map[string]string {
+	//fmt.Println(dir + "\\settings.json")
+	fi, err := os.Open(dir + "\\settings.json")
 	if err != nil {
 		panic(err)
 	}

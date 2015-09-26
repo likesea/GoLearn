@@ -2,8 +2,9 @@ package main
 
 import (
 	"bufio"
-	"fmt"
+	"errors"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -11,11 +12,30 @@ import (
 //下的ConfigProfile.xml文件， os.Args[4] 可选，配置文件模板扩展名，默认.tpl
 func main() {
 	//var absPaths = GetTmpFile("F:\\GoLearn\\src\\GoConfig", ".tpl")
-	fmt.Println(os.Args[0])
-	var currentEnv = GetEnvironment()
-	var configMaps = GetConfig("F:\\GoLearn\\src\\GoConfig\\ConfigProfile.xml")
+	var s = os.Args
+	var prjPath string
+	if len(s) < 2 {
+		panic(errors.New("project path is a must"))
+	}
+	jsonDir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+
+	//prjPath = "C:\\Users\\yanbi_000\\Documents\\Visual Studio 2013\\Projects\\WebAppConfigTest\\WebAppConfigTest"
+	//prjPath = "F:\\GoLearn\\src\\GoConfig"
+	//prjPath = "F:\\WebAppConfigTest\\WebAppConfigTest"
+	prjPath = s[1]
+	// "$(ProjectDir)" 传进来会有一个多余的引号，不知何故，C:\Users\yanbi_000\Documents\Visual Studio 2013\Projects\WebAppConfigTest\WebAppConfigTest"
+	prjPath = strings.Replace(prjPath, "\"", "", 1)
+	var configPath = prjPath + "\\ConfigProfile.xml"
+	if len(s) == 3 {
+		configPath = os.Args[2]
+	}
+	var currentEnv = GetEnvironment(jsonDir)
+	//fmt.Println(currentEnv)
+	var configMaps = GetConfig(configPath)
+	//fmt.Println(configMaps)
 	configMap := configMaps[currentEnv]
-	generateConfigFile("F:\\GoLearn\\src\\GoConfig", ".tpl", configMap)
+	//fmt.Println(configMap)
+	generateConfigFile(prjPath, ".tpl", configMap)
 }
 
 func generateConfigFile(path string, ext string, maps map[string]string) {
@@ -23,6 +43,7 @@ func generateConfigFile(path string, ext string, maps map[string]string) {
 	//var outPutContent []string
 	for _, v := range absPaths {
 		newFilePath := strings.Replace(v, ext, ".config", 1)
+		//fmt.Println(newFilePath)
 		//创建新文件
 		createdfile, err := os.Create(newFilePath)
 		if err != nil {
@@ -43,17 +64,13 @@ func generateConfigFile(path string, ext string, maps map[string]string) {
 			//find the key in every line
 			lineContent := scanner.Text()
 			begin := strings.Index(lineContent, "{")
-			if begin == -1 {
-				break
-			} else {
+			if begin != -1 {
 				end := strings.Index(lineContent, "}")
 				key := lineContent[begin+2 : end]
 				lineContent = strings.Replace(lineContent, lineContent[begin:end+1], maps[key], 1)
 			}
-			n4, _ := w.WriteString(lineContent + "\n")
-			fmt.Println(n4)
+			w.WriteString(lineContent + "\n")
 		}
 		w.Flush()
-
 	}
 }

@@ -1,11 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dev>
-        <AppID>150731</AppID>
-        <LoggingServer.V2.IP>collector.logging.fws.qa.nt.ctripcorp.com</LoggingServer.V2.IP>
-        <SMSSendCode>1069</SMSSendCode>
-</dev>
-<fws>
-    <AppID>150730</AppID>
-    <LoggingServer.V2.IP>collector.logging.fws.qa.nt.ctripcorp.com</LoggingServer.V2.IP>
-    <SMSSendCode>1069</SMSSendCode>
-</fws>
+ <?xml version="1.0" encoding="utf-8" ?>
+ <profile>
+ <dev>
+   <AppID>10010</AppID>
+   <LoggingServer.V2.IP>dev_dev</LoggingServer.V2.IP>
+   <SMSSendCode>sms111</SMSSendCode>
+  </dev>
+  <fws>
+     <AppID>10011</AppID>
+   <LoggingServer.V2.IP>fws_fws</LoggingServer.V2.IP>
+   <SMSSendCode>sms222</SMSSendCode>
+  </fws>
+</profile>
+  
