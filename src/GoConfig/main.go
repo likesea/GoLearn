@@ -64,8 +64,10 @@ func generateConfigFile(path string, ext string, maps map[string]string) {
 			//find the key in every line
 			lineContent := scanner.Text()
 			begin := strings.Index(lineContent, "{")
-			if begin != -1 {
-				end := strings.Index(lineContent, "}")
+			sign := strings.Index(lineContent, "$")
+			end := strings.Index(lineContent, "}")
+			if begin != -1 && sign != -1 && end != -1 {
+
 				key := lineContent[begin+2 : end]
 				lineContent = strings.Replace(lineContent, lineContent[begin:end+1], maps[key], 1)
 			}

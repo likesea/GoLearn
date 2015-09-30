@@ -1,15 +1,18 @@
 package main
 
 import (
-	"fmt"
+	"github.com/astaxie/beego"
 )
 
-func main() {
-	b := 10
-	b = increase(b)
-	fmt.Println(b)
+type MainController struct {
+	beego.Controller
 }
-func increase(a int) int {
-	a++
-	return a
+
+func (this *MainController) Get() {
+	this.Ctx.WriteString("hello world")
+}
+
+func main() {
+	beego.Router("/", &MainController{})
+	beego.Run()
 }
