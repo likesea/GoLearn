@@ -1,18 +1,11 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
+	"fmt"
+	"goconfigsrc"
 )
 
-type MainController struct {
-	beego.Controller
-}
-
-func (this *MainController) Get() {
-	this.Ctx.WriteString("hello world")
-}
-
 func main() {
-	beego.Router("/", &MainController{})
-	beego.Run()
+	value, _ := goconfig.LoadConfigFile("conf.ini")
+	fmt.Println(value.GetValue("Demo", "key:1"))
 }
