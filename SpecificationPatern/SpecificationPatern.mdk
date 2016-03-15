@@ -1,0 +1,18 @@
+Title         : Specific Pattern 规约模式
+Author        : You
+Logo          : True
+
+[TITLE]
+
+# 什么是规约模式
+
+规约模式允许我们将一小块领域知识封装到一个单元中，即规约，然后可以在code base中对其进行复用。
+
+
+* Read the [reference manual].
+* Explore the upper-right toolbox menu to discover how Markdown works. 
+* `Alt-Q` reformats the current paragraph.
+
+Enjoy!
+
+[reference manual]: http://research.microsoft.com/en-us/um/people/daan/madoko/doc/reference.html  "Madoko refrence manual"
