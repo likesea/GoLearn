@@ -8,7 +8,24 @@ Logo          : True
 
 规约模式允许我们将一小块领域知识封装到一个单元中，即规约，然后可以在code base中对其进行复用。
 
-
+它可以用来解决在查询中泛滥着GetBySomething方法的问题，以及对查询条件的组合和复用。
+举个例子
+```
+public class Movie : Entity
+{
+    public string Name { get; }
+    public DateTime ReleaseDate { get; }
+    public MpaaRating MpaaRating { get; }
+    public string Genre { get; }
+    public double Rating { get; }
+}
+public enum MpaaRating
+{
+    G,
+    PG13,
+    R
+}
+  ```
 * Read the [reference manual].
 * Explore the upper-right toolbox menu to discover how Markdown works. 
 * `Alt-Q` reformats the current paragraph.
